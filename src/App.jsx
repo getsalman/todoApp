@@ -9,16 +9,15 @@ export default function App() {
   function handleSubmit(e) {
     e.preventDefault();
     if (editId) {
-       const editTodo = todos.find((todo) => todo.id === editId);
-      const updatedTodo = todos.map((item) => item.id === editTodo.id ? (item = {id: item.id, todo}) : {id: item.id, todo: item.todo});
+      const editTodo = todos.find((todo) => todo.id === editId);
+      const updatedTodo = todos.map((item) => item.id === editTodo.id ? (item = {id: item.id, todo: todo}) : {id: item.id, todo: item.todo});
       setTodos(updatedTodo);
       setEidtId(0);
       setTodo("");
       return;
     }
-    
     if (todo.trim() !== "") {
-      setTodos([{id: `${todo}-${Date.now()}`, todo}, ...todos]);
+      setTodos([{id: `${todo}-${Date.now()}`, todo: todo}, ...todos]);
       setTodo("");
     }
   }
@@ -43,8 +42,8 @@ export default function App() {
         </form>
         <ul className="allTodos">
           {todos.map((item) => (
-      <li className="singleTodo">
-        <span key={item.id} className="todoText">
+      <li className="singleTodo" key={item.id}>
+        <span className="todoText">
           {item.todo}
         </span>
         <button onClick={() => handleEdit(item.id)}>Edit</button>
